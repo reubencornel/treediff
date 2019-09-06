@@ -7,12 +7,16 @@ import org.freeshell.rfcornel.lcs.LCSAlgorithm;
 import org.freeshell.rfcornel.lcs.LCSResult;
 import org.freeshell.rfcornel.lcs.impl.SimpleLCSAlgorithm;
 import org.freeshell.rfcornel.lcs.impl.SimpleLCSResult;
+import org.freeshell.rfcornel.matching.MatchingEngine;
+import org.freeshell.rfcornel.matching.impl.DefaultMatch;
 import org.freeshell.rfcornel.matching.impl.SimpleXmlTestMatchingCriteria;
+import org.freeshell.rfcornel.matching.impl.TestMatchingCriteria;
 import org.freeshell.rfcornel.treediff.EditOperation;
 import org.freeshell.rfcornel.treediff.editoperations.UpdateValueOperation;
 import org.freeshell.rfcornel.util.Pair;
 import org.freeshell.rfcornel.util.TestTreeNode;
 import org.freeshell.rfcornel.util.TestingUtils;
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
@@ -26,6 +30,7 @@ import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
 import static org.freeshell.rfcornel.util.TestingUtils.parseXmlTree;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.is;
@@ -54,7 +59,10 @@ public class EditScriptAlgorithmTest {
                 "</parent>";
         TestTreeNode root1 = parseXmlTree(tree1);
         TestTreeNode root2 = parseXmlTree(tree2);
-        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 2);
+
+        MatchingEngine matchingEngine = new DefaultMatch();
+        Collection<Pair<TestTreeNode, TestTreeNode>> matching = matchingEngine.calculateMatching(root1, root2, new TestMatchingCriteria());
+        assertThat(matching, notNullValue());
         int oldMatchingSize = matching.size();
         EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(matching, new SimpleLCSAlgorithm<>());
         List<EditOperation> editOperations = nodeEditScriptAlgorithm.calculateEditScript(root1, root2);
