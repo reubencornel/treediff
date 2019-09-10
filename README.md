@@ -6,7 +6,7 @@ This library implements the algorithm described by Chawathe et al in the followi
 
 0. Implement the `Node` interface for nodes in your tree
 1. Implement a `MatchingCriteria` based on the tree you want to diff.
-2. Instantiate an instance of `DefaultMatch`.
+2. Instantiate an instance of `DefaultMatch` or `FastMatch`. At this point the `FastMatch` implementation is slower than `DefaultMatch`. I have to spend time profiling it.
 3. Calculate a matching by calling `calculateMatching` on the DefaultMatch instance.
 4. Instantiate an instance of `EditScriptAlgorithm` passing in the matching obtained in the previous step and an instance of `SimpleLCSAlgorithm`
 5. Call `calculateEditScript` to get a the edit script for your tree
