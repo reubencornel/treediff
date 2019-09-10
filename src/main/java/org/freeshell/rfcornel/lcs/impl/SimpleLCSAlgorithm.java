@@ -16,7 +16,7 @@ public class SimpleLCSAlgorithm<T> implements LCSAlgorithm<T> {
 
 	@Override
 	public LCSResult findLCS(List<T> seq1, List<T> seq2, BiPredicate<T, T> equalityPredicate) {
-		LCSResult returnResult = new ShortBasedLCSResult(seq1.size() - 1 , seq2.size() - 1);
+		LCSResult returnResult = new ShortBasedLCSResult(seq2.size() - 1, seq1.size() - 1 );
 		for (int i = 0; i < seq2.size(); i++) {
 			for (int j = 0; j < seq1.size(); j++) {
 				if (equalityPredicate.test(seq1.get(j), seq2.get(i))) {

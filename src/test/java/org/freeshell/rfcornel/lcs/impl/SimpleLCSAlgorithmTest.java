@@ -34,20 +34,30 @@ public class SimpleLCSAlgorithmTest {
                         ImmutableList.of(Pair.of(0, 0)),
                         ImmutableList.of(getCellResult(LCSDirection.NORTHWEST, 1)),
                         ImmutableList.of(Pair.of('c', 'c'))
-                },
-                {
+                },{
                         ImmutableList.of('c', 'c'),
                         ImmutableList.of('c', 'c'),
                         ImmutableList.of(Pair.of(0, 0), Pair.of(1, 1), Pair.of(0, 1)),
                         ImmutableList.of(getCellResult(LCSDirection.NORTHWEST, 1), getCellResult(LCSDirection.NORTHWEST, 2), getCellResult(LCSDirection.NORTHWEST, 1), getCellResult(LCSDirection.NORTHWEST, 1)),
                         ImmutableList.of(Pair.of('c', 'c'), Pair.of('c', 'c'))
 
-                },
-                {
+                },{
                         ImmutableList.of('c', 'd'),
                         ImmutableList.of('c', 'c'),
                         ImmutableList.of(Pair.of(0, 0), Pair.of(0, 1), Pair.of(1, 0), Pair.of(1, 1)),
                         ImmutableList.of(getCellResult(LCSDirection.NORTHWEST, 1), getCellResult(LCSDirection.WEST, 1), getCellResult(LCSDirection.NORTHWEST, 1), getCellResult(LCSDirection.WEST, 1)),
+                        ImmutableList.of(Pair.of('c', 'c'))
+                },{
+                        ImmutableList.of('c'),
+                        ImmutableList.of('c', 'c'),
+                        ImmutableList.of(Pair.of(0, 0)),
+                        ImmutableList.of(getCellResult(LCSDirection.NORTHWEST, 1)),
+                        ImmutableList.of(Pair.of('c', 'c'))
+                }, {
+                        ImmutableList.of('c', 'c'),
+                        ImmutableList.of('c'),
+                        ImmutableList.of(Pair.of(0, 0)),
+                        ImmutableList.of(getCellResult(LCSDirection.NORTHWEST, 1)),
                         ImmutableList.of(Pair.of('c', 'c'))
                 }
         });
