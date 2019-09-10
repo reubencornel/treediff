@@ -1,15 +1,21 @@
 package org.freeshell.rfcornel.matching.impl;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import org.freeshell.rfcornel.matching.MatchingEngine;
 import org.freeshell.rfcornel.util.Pair;
 import org.freeshell.rfcornel.util.TestTreeNode;
 import org.freeshell.rfcornel.util.TestingUtils;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,46 +29,17 @@ import static org.junit.Assert.fail;
  *
  * @author reuben
  */
-public class DefaultMatchTest {
-    // Test to validate we can deserialize xml correctly into the test tree node
-    // we care about.
-    @Test
-    public void simpleXmlParsingTest() throws ParserConfigurationException, SAXException, IOException {
-        String simpleInput = "<test></test>";
-        TestTreeNode root = TestingUtils.parseXmlTree(simpleInput);
+@RunWith(Parameterized.class)
+public class MatchEngineTest {
 
-        assertThat(root, notNullValue());
-        assertThat(root.getLabel().get(), is("test"));
-        assertThat(root.getChildren().isPresent(), is(false));
+    @Parameterized.Parameters
+    public static Collection<Object[]> data() {
+        return ImmutableList.of(new Object[]{new DefaultMatch<>()},
+                new Object[]{new FastMatch<>()});
     }
 
-    @Test
-    public void treeXmlParsingTest() throws ParserConfigurationException, SAXException, IOException {
-        String treeInput = "<parent>" +
-                                "<child1></child1>" +
-                                "<child2></child2>" +
-                            "</parent>";
-        TestTreeNode root = TestingUtils.parseXmlTree(treeInput);
-
-        assertThat(root, notNullValue());
-        assertThat(root.getChildren().isPresent(), is(true));
-        assertThat(root.getChildren().get().size(), is(2));
-    }
-
-    @Test
-    public void xmlParsingWithAttributes () throws IOException, SAXException, ParserConfigurationException {
-        String treeInput = "<parent>" +
-                "<child1 name='reuben'></child1>" +
-                "<child2></child2>" +
-                "</parent>";
-        TestTreeNode root = TestingUtils.parseXmlTree(treeInput);
-
-        assertThat(root, notNullValue());
-        assertThat(root.getChildren().isPresent(), is(true));
-        assertThat(root.getChildren().get().size(), is(2));
-        assertThat(root.getChildren().get().get(0).getValue().get().keySet().contains("name"), is(true));
-    }
-
+    @Parameterized.Parameter
+    public MatchingEngine engine;
 
     // Write a test to validate matching tree with one matching node
     @Test
@@ -71,7 +48,7 @@ public class DefaultMatchTest {
         String tree2 = "<parent></parent>";
 
         int expectedNumberOfMatchings = 1;
-        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(tree1, tree2, expectedNumberOfMatchings);
+        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(tree1, tree2, expectedNumberOfMatchings, engine);
         Set<Pair<String, String>> calculatedMatches = matching.stream().map(x -> Pair.of(x.first.getLabel().get(), x.second.getLabel().get())).collect(Collectors.toSet());
         Set<Pair<String, String>> expectedMatches = ImmutableSet.of(Pair.of("parent", "parent"));
 
@@ -84,7 +61,7 @@ public class DefaultMatchTest {
         String tree1 = "<parent></parent>";
         String tree2 = "<child></child>";
 
-        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(tree1, tree2, 0);
+        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(tree1, tree2, 0, engine);
     }
 
     // Write a test to validate one parent node and one child node
@@ -97,7 +74,7 @@ public class DefaultMatchTest {
                 "<child></child>"+
                 "</parent>";
 
-        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(tree1, tree2, 2);
+        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(tree1, tree2, 2, engine);
 
         Set<Pair<String, String>> calculatedMatches = matching.stream().map(x -> Pair.of(x.first.getLabel().get(), x.second.getLabel().get())).collect(Collectors.toSet());
         Set<Pair<String, String>> expectedMatches = ImmutableSet.of(Pair.of("parent", "parent"),
@@ -115,7 +92,7 @@ public class DefaultMatchTest {
                 "<child1></child1>" +
                 "</parent>";
 
-        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(tree1, tree2, 0);
+        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(tree1, tree2, 0, engine);
     }
 
     @Test
@@ -127,7 +104,7 @@ public class DefaultMatchTest {
                 "<child></child>" +
                 "</parent>";
 
-        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(tree1, tree2, 1);
+        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(tree1, tree2, 1, engine);
 
         Set<Pair<String, String>> calculatedMatches = matching.stream().map(x -> Pair.of(x.first.getLabel().get(), x.second.getLabel().get())).collect(Collectors.toSet());
         Set<Pair<String, String>> expectedMatches = ImmutableSet.of(Pair.of("child", "child"));
@@ -162,7 +139,7 @@ public class DefaultMatchTest {
                 "<child1></child1>" +
                 "</parent>";
 
-        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(tree1, tree2, 3);
+        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(tree1, tree2, 3, engine);
 
         Set<Pair<String, String>> calculatedMatches = matching.stream().map(x -> Pair.of(x.first.getLabel().get(), x.second.getLabel().get())).collect(Collectors.toSet());
         Set<Pair<String, String>> expectedMatches = ImmutableSet.of(Pair.of("parent", "parent"),
@@ -183,7 +160,7 @@ public class DefaultMatchTest {
                 "<child1></child1>" +
                 "</parent1>";
 
-       TestingUtils.runMatchingTest(tree1, tree2, 0);
+        TestingUtils.runMatchingTest(tree1, tree2, 0, engine);
     }
 
 
@@ -198,7 +175,7 @@ public class DefaultMatchTest {
                 "<child></child>" +
                 "</parent>";
 
-        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(tree1, tree2, 2);
+        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(tree1, tree2, 2, engine);
 
         Set<Pair<String, String>> calculatedMatches = matching.stream().map(x -> Pair.of(x.first.getLabel().get(), x.second.getLabel().get())).collect(Collectors.toSet());
         Set<Pair<String, String>> expectedMatches = ImmutableSet.of(Pair.of("parent", "parent"),
@@ -216,6 +193,6 @@ public class DefaultMatchTest {
                 "</parent>";
         String tree2 = "<parent>" +
                 "</parent>";
-        TestingUtils.runMatchingTest(tree1, tree2, 0);
+        TestingUtils.runMatchingTest(tree1, tree2, 0, engine);
     }
 }

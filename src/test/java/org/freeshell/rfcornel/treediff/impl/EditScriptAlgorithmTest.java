@@ -87,7 +87,7 @@ public class EditScriptAlgorithmTest {
                 "</parent>";
         TestTreeNode root1 = parseXmlTree(tree1);
         TestTreeNode root2 = parseXmlTree(tree2);
-        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 2);
+        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 2, new DefaultMatch());
         EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(matching, new SimpleLCSAlgorithm<>());
         List<EditOperation> editOperations = nodeEditScriptAlgorithm.calculateEditScript(root1, root2);
 
@@ -116,7 +116,7 @@ public class EditScriptAlgorithmTest {
                 "</parent>";
         TestTreeNode root1 = parseXmlTree(tree1);
         TestTreeNode root2 = parseXmlTree(tree2);
-        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 3, new SimpleXmlTestMatchingCriteria());
+        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 3, new SimpleXmlTestMatchingCriteria(), new DefaultMatch());
         EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(matching, new SimpleLCSAlgorithm<>());
         List<EditOperation> editOperations = nodeEditScriptAlgorithm.calculateEditScript(root1, root2);
         assertThat(editOperations.size(), is(2));
@@ -140,7 +140,7 @@ public class EditScriptAlgorithmTest {
                 "</parent>";
         TestTreeNode root1 = parseXmlTree(tree1);
         TestTreeNode root2 = parseXmlTree(tree2);
-        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 4, new SimpleXmlTestMatchingCriteria());
+        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 4, new SimpleXmlTestMatchingCriteria(), new DefaultMatch());
         EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(matching, new SimpleLCSAlgorithm<>());
         List<EditOperation> editOperations = nodeEditScriptAlgorithm.calculateEditScript(root1, root2);
         System.out.println(editOperations);
@@ -192,7 +192,7 @@ public class EditScriptAlgorithmTest {
         TestTreeNode root2 = parseXmlTree(tree2);
         TestTreeNode root3 =  parseXmlTree(tree3);
 
-        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 4);
+        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 4, new DefaultMatch());
 
         // Create a fake match
         Pair<TestTreeNode, TestTreeNode> fakeMatch = Pair.of((TestTreeNode)root1.getChildren().get().get(2), root3.getChildren().get().get(0));
@@ -261,7 +261,7 @@ public class EditScriptAlgorithmTest {
                 "</parent>";
         TestTreeNode root1 = parseXmlTree(tree1);
         TestTreeNode root2 = parseXmlTree(tree2);
-        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 4);
+        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 4, new DefaultMatch());
         EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(matching, new SimpleLCSAlgorithm<>());
         nodeEditScriptAlgorithm.alignChildren(root1, root2);
 
@@ -292,7 +292,7 @@ public class EditScriptAlgorithmTest {
                 "</parent>";
         TestTreeNode root1 = parseXmlTree(tree1);
         TestTreeNode root2 = parseXmlTree(tree2);
-        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 4);
+        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 4, new DefaultMatch());
         EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(matching, new SimpleLCSAlgorithm<>());
         nodeEditScriptAlgorithm.alignChildren(root1, root2);
 
@@ -317,7 +317,7 @@ public class EditScriptAlgorithmTest {
         TestTreeNode root1 = parseXmlTree(tree1);
         TestTreeNode root2 = parseXmlTree(tree2);
 
-        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 2);
+        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 2, new DefaultMatch());
         EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(matching, null);
         TestTreeNode node = root2.getChildren().get().get(0);
         node.setInOrder(true);
@@ -338,7 +338,7 @@ public class EditScriptAlgorithmTest {
         TestTreeNode root1 = parseXmlTree(tree1);
         TestTreeNode root2 = parseXmlTree(tree2);
 
-        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 2);
+        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 2, new DefaultMatch());
         EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(matching, null);
         assertThat(nodeEditScriptAlgorithm.findPosition(root2), is(1));
     }
@@ -360,7 +360,7 @@ public class EditScriptAlgorithmTest {
         TestTreeNode root1 = parseXmlTree(tree1);
         TestTreeNode root2 = parseXmlTree(tree2);
 
-        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 1);
+        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 1, new DefaultMatch());
         EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(matching, null);
         root2.getChildren().get().get(1).setInOrder(true);
         int nodePosition = nodeEditScriptAlgorithm.findRightMostSiblingOfNodeMarkedInOrder(root2.getChildren().get().get(3), root2.getChildren().get());
@@ -384,7 +384,7 @@ public class EditScriptAlgorithmTest {
 
         TestTreeNode root1 = parseXmlTree(tree1);
         TestTreeNode root2 = parseXmlTree(tree2);
-        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 3);
+        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 3, new DefaultMatch());
         EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(matching, null);
         root2.getChildren().get().get(1).setInOrder(true);
         int nodePosition = nodeEditScriptAlgorithm.findPosition(root2.getChildren().get().get(3), root2);

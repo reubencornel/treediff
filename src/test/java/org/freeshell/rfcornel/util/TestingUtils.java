@@ -34,18 +34,18 @@ public class TestingUtils {
         return handler.getRoot();
     }
 
-    public static Collection<Pair<TestTreeNode, TestTreeNode>> runMatchingTest(String tree1, String tree2, int expectedNumberOfMatchings) throws ParserConfigurationException, SAXException, IOException {
+    public static Collection<Pair<TestTreeNode, TestTreeNode>> runMatchingTest(String tree1, String tree2, int expectedNumberOfMatchings, MatchingEngine engine) throws ParserConfigurationException, SAXException, IOException {
         TestTreeNode root1 = parseXmlTree(tree1);
         TestTreeNode root2 = parseXmlTree(tree2);
-        return runMatchingTest(root1, root2, expectedNumberOfMatchings);
+        return runMatchingTest(root1, root2, expectedNumberOfMatchings, engine);
     }
 
-    public static Collection<Pair<TestTreeNode, TestTreeNode>> runMatchingTest(TestTreeNode root1, TestTreeNode root2, int expectedNumberOfMatchings) {
-        return runMatchingTest(root1, root2, expectedNumberOfMatchings, new TestMatchingCriteria());
+    public static Collection<Pair<TestTreeNode, TestTreeNode>> runMatchingTest(TestTreeNode root1, TestTreeNode root2, int expectedNumberOfMatchings, MatchingEngine engine) {
+        return runMatchingTest(root1, root2, expectedNumberOfMatchings, new TestMatchingCriteria(), engine);
     }
 
-    public static Collection<Pair<TestTreeNode, TestTreeNode>> runMatchingTest(TestTreeNode root1, TestTreeNode root2, int expectedNumberOfMatchings, MatchingCriteria criteria) {
-        MatchingEngine matchingEngine = new DefaultMatch();
+    public static Collection<Pair<TestTreeNode, TestTreeNode>> runMatchingTest(TestTreeNode root1, TestTreeNode root2, int expectedNumberOfMatchings, MatchingCriteria criteria, MatchingEngine matchingEngine) {
+//        MatchingEngine matchingEngine = new DefaultMatch();
         Collection<Pair<TestTreeNode, TestTreeNode>> matching = matchingEngine.calculateMatching(root1, root2, criteria);
         assertThat(matching, notNullValue());
         if(expectedNumberOfMatchings > 0) {
