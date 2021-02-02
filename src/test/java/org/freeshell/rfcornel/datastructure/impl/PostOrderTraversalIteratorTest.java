@@ -2,11 +2,10 @@ package org.freeshell.rfcornel.datastructure.impl;
 
 import com.google.common.collect.ImmutableList;
 import org.freeshell.rfcornel.datastructure.Node;
+
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -16,6 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * Tests to validate post order traversal
  */
 public class PostOrderTraversalIteratorTest {
+
     @Test
     public void testTraversalWithOneNode() {
         Node mockedNode = Mockito.mock(Node.class);
