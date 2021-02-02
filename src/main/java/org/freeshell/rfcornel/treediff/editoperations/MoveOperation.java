@@ -15,6 +15,8 @@ public class MoveOperation<E extends Node<E>> implements EditOperation {
     private final E _nodeToBeMoved;
     private final E _parent;
     private final int _position;
+    private  E _oldParent;
+    private int _oldPosition;
 
     public MoveOperation(E nodeToBeMoved, E parent, int position) {
         this._nodeToBeMoved = nodeToBeMoved;
@@ -35,6 +37,8 @@ public class MoveOperation<E extends Node<E>> implements EditOperation {
             throw new IllegalStateException("Could not find child " + _nodeToBeMoved + "  in _parent: " + oldParent);
         }
 
+        _oldParent = oldParent;
+        _oldPosition = oldPosition;
         oldParent.getChildren().get().remove(oldPosition);
         _nodeToBeMoved.setParent(_parent);
 
@@ -50,7 +54,7 @@ public class MoveOperation<E extends Node<E>> implements EditOperation {
 
     @Override
     public void visit(Visitor visitor) {
-        visitor.visit(this, _nodeToBeMoved, _parent, _position);
+        visitor.visit(this, _nodeToBeMoved, _oldParent, _oldPosition, _parent, _position);
     }
 
     @Override
