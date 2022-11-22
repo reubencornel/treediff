@@ -38,12 +38,12 @@ public class FastMatch<E extends Node> implements MatchingEngine<E> {
         PostOrderTraversalIterator<E> iterator = new PostOrderTraversalIterator<>(root1);
         while(iterator.hasNext()) {
             E next = iterator.next();
-            if (returnMap.containsKey((String)next.getLabel().get())) {
-                returnMap.get(next.getLabel().get()).add(next);
+            if (returnMap.containsKey(next.getLabel())) {
+                returnMap.get(next.getLabel()).add(next);
             } else {
                 List<E> newList =  new ArrayList<>();
                 newList.add(next);
-                returnMap.put((String)next.getLabel().get(), newList);
+                returnMap.put(next.getLabel(), newList);
             }
         }
 

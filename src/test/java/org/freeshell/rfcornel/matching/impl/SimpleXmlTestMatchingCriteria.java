@@ -11,8 +11,8 @@ import java.util.Optional;
 public class SimpleXmlTestMatchingCriteria implements MatchingCriteria<TestTreeNode>  {
     @Override
     public boolean matches(TestTreeNode node1, TestTreeNode node2, List<Pair<TestTreeNode, TestTreeNode>> matching) {
-        Optional<String> node1Label = node1.getLabel();
-        Optional<String> node2Label = node2.getLabel();
+        String node1Label = node1.getLabel();
+        String node2Label = node2.getLabel();
         // Let check the parents all the way up to the top
         Optional<TestTreeNode> parent1 = node1.getParent();
         Optional<TestTreeNode> parent2 = node2.getParent();
@@ -28,5 +28,5 @@ public class SimpleXmlTestMatchingCriteria implements MatchingCriteria<TestTreeN
             return false;
         }
 
-        return (node1Label.isPresent() && node2Label.isPresent() && node1Label.get().equals(node2Label.get()));    }
+        return (node1Label != null && node2Label != null && node1Label.equals(node2Label));    }
 }

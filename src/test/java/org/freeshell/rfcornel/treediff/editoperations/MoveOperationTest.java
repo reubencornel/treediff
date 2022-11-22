@@ -34,6 +34,6 @@ public class MoveOperationTest {
 
         assertThat(root1.getChildren().get().get(0).getChildren().get().size(), Matchers.is(0));
         assertThat(root1.getChildren().get().get(1).getChildren().get().size(), Matchers.is(2));
-        assertThat(root1.getChildren().get().get(1).getChildren().get().get(1).getLabel().get(), Matchers.is("child01"));
+        assertThat(root1.getChildren().get().get(1).getChildren().get().get(1).getLabel(), Matchers.is("child01"));
     }
 }

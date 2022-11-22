@@ -18,17 +18,17 @@ public class TestMatchingCriteria implements MatchingCriteria<TestTreeNode> {
     public boolean matches(TestTreeNode node1, TestTreeNode node2, List<Pair<TestTreeNode, TestTreeNode>> matching) {
         // Leaf Node so just match labels
         if (!node1.getChildren().isPresent() && !node2.getChildren().isPresent()) {
-            Optional<String> node1Label = node1.getLabel();
-            Optional<String> node2Label = node2.getLabel();
-            return (node1Label.isPresent() && node2Label.isPresent() && node1Label.get().equals(node2Label.get()));
+            String node1Label = node1.getLabel();
+            String node2Label = node2.getLabel();
+            return (node1Label != null && node1Label != null && node1Label.equals(node2Label));
         } else {
             // We need to find the set of children in the matching such that if (w,z) are a tuple in the matching
             // w is a child of x and z is a child of y
             int commonPairs = 0;
-            Optional<String> node1Label = node1.getLabel();
-            Optional<String> node2Label = node2.getLabel();
-            if (node1Label.isPresent() && node2Label.isPresent() &&
-                    !node1Label.get().equals(node2Label.get()))
+            String node1Label = node1.getLabel();
+            String node2Label = node2.getLabel();
+            if (node1Label != null && node1Label != null &&
+                    !node1Label.equals(node2Label))
                 return false;
             for (Pair<TestTreeNode, TestTreeNode> matchingPair : matching) {
                if (isDescendentOf(matchingPair.first, node1) &&

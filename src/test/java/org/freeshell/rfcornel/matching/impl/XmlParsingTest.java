@@ -21,7 +21,7 @@ public class XmlParsingTest {
         TestTreeNode root = TestingUtils.parseXmlTree(simpleInput);
 
         assertThat(root, notNullValue());
-        assertThat(root.getLabel().get(), is("test"));
+        assertThat(root.getLabel(), is("test"));
         assertThat(root.getChildren().isPresent(), is(false));
     }
 

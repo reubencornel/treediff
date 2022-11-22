@@ -33,8 +33,8 @@ public class TestTreeNode implements Node<TestTreeNode> {
     }
 
     @Override
-    public Optional<String> getLabel() {
-        return Optional.ofNullable(_label);
+    public String getLabel() {
+        return _label;
     }
 
     public void setLabel(String label) {
@@ -107,7 +107,7 @@ public class TestTreeNode implements Node<TestTreeNode> {
     @Override
     public Node copyNode() {
         TestTreeNode newNode = new TestTreeNode();
-        newNode.setLabel(this.getLabel().get());
+        newNode.setLabel(this.getLabel());
         return newNode;
     }
 
@@ -138,7 +138,7 @@ public class TestTreeNode implements Node<TestTreeNode> {
 
     @Override
     public String toString() {
-        return "[" + getLabel().get() + "]";
+        return "[" + getLabel() + "]";
     }
 
     @Override
@@ -152,6 +152,7 @@ public class TestTreeNode implements Node<TestTreeNode> {
         }
 
         TestTreeNode castedObj = (TestTreeNode)obj;
-        return this.getLabel().equals(castedObj.getLabel());
+        return (this.getLabel() != null && this.getLabel().equals(castedObj.getLabel()))
+                || (this.getLabel() == null && castedObj.getLabel() == null);
     }
 }

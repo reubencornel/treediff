@@ -72,8 +72,8 @@ public class EditScriptAlgorithmTest {
         assertThat(root1.getChildren().get().size(), is(2));
         assertThat(editOperations.size(), is(1));
         assertThat(matching.size() - oldMatchingSize, is(1));
-        assertThat(matching.stream().map(x -> x.first.getLabel().get()
-                + " " + x.second.getLabel().get()).filter(x -> x.equals("child1 child1")).count(), is(1l));
+        assertThat(matching.stream().map(x -> x.first.getLabel()
+                + " " + x.second.getLabel()).filter(x -> x.equals("child1 child1")).count(), is(1l));
     }
 
     // If the node in T2 has a different value from the node in t1
@@ -205,12 +205,12 @@ public class EditScriptAlgorithmTest {
 
         Set<String> list1Set = dummyLCS.getList1().stream()
                 .filter(x -> x.getParent().get() == root1)
-                .map(x -> x.getLabel().get())
+                .map(x -> x.getLabel())
                 .collect(Collectors.toSet());
         assertThat(list1Set.size(), is(3));
         Set<String> list2Set = dummyLCS.getList2().stream()
                 .filter(x -> x.getParent().get() == root2)
-                .map(x -> x.getLabel().get()).collect(Collectors.toSet());
+                .map(x -> x.getLabel()).collect(Collectors.toSet());
         assertThat(list2Set.size(), is(3));
 
         Set<String> expectedList1 = ImmutableSet.of("child", "child1", "child3");
@@ -297,9 +297,9 @@ public class EditScriptAlgorithmTest {
         EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(matching, new SimpleLCSAlgorithm<>());
         nodeEditScriptAlgorithm.alignChildren(root1, root2);
 
-        assertThat(root1.getChildren().get().get(0).getLabel().get(), is("child"));
-        assertThat(root1.getChildren().get().get(1).getLabel().get(), is("child1"));
-        assertThat(root1.getChildren().get().get(2).getLabel().get(), is("child3"));
+        assertThat(root1.getChildren().get().get(0).getLabel(), is("child"));
+        assertThat(root1.getChildren().get().get(1).getLabel(), is("child1"));
+        assertThat(root1.getChildren().get().get(2).getLabel(), is("child3"));
     }
 
     

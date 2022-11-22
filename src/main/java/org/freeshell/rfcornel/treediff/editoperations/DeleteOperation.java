@@ -31,7 +31,7 @@ public class DeleteOperation<E extends Node<E>> implements EditOperation {
     @Override
     public void apply() {
         E parent = (E) _nodeToBeDeleted.getParent().get();
-        parentLabel = parent.getLabel().get();
+        parentLabel = parent.getLabel();
         parentIdentityHash = System.identityHashCode(parent);
         int position = Operations.childPosition(parent, _nodeToBeDeleted);
         parent.getChildren().get().remove(position);

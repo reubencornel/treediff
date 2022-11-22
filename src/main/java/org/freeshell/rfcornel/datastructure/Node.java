@@ -13,8 +13,9 @@ import java.util.Optional;
 public interface Node<E extends Node<E>> {
     /**
      * This method returns the label for a given node.
+     * @return
      */
-    Optional<String> getLabel();
+    String getLabel();
 
     /**
      * This method returns the parent of a given node.

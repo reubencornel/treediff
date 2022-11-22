@@ -49,7 +49,7 @@ public class MatchEngineTest {
 
         int expectedNumberOfMatchings = 1;
         Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(tree1, tree2, expectedNumberOfMatchings, engine);
-        Set<Pair<String, String>> calculatedMatches = matching.stream().map(x -> Pair.of(x.first.getLabel().get(), x.second.getLabel().get())).collect(Collectors.toSet());
+        Set<Pair<String, String>> calculatedMatches = matching.stream().map(x -> Pair.of(x.first.getLabel(), x.second.getLabel())).collect(Collectors.toSet());
         Set<Pair<String, String>> expectedMatches = ImmutableSet.of(Pair.of("parent", "parent"));
 
         validateMatchingSet(calculatedMatches, expectedMatches);
@@ -76,7 +76,7 @@ public class MatchEngineTest {
 
         Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(tree1, tree2, 2, engine);
 
-        Set<Pair<String, String>> calculatedMatches = matching.stream().map(x -> Pair.of(x.first.getLabel().get(), x.second.getLabel().get())).collect(Collectors.toSet());
+        Set<Pair<String, String>> calculatedMatches = matching.stream().map(x -> Pair.of(x.first.getLabel(), x.second.getLabel())).collect(Collectors.toSet());
         Set<Pair<String, String>> expectedMatches = ImmutableSet.of(Pair.of("parent", "parent"),
                 Pair.of("child", "child"));
 
@@ -106,7 +106,7 @@ public class MatchEngineTest {
 
         Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(tree1, tree2, 1, engine);
 
-        Set<Pair<String, String>> calculatedMatches = matching.stream().map(x -> Pair.of(x.first.getLabel().get(), x.second.getLabel().get())).collect(Collectors.toSet());
+        Set<Pair<String, String>> calculatedMatches = matching.stream().map(x -> Pair.of(x.first.getLabel(), x.second.getLabel())).collect(Collectors.toSet());
         Set<Pair<String, String>> expectedMatches = ImmutableSet.of(Pair.of("child", "child"));
 
         validateMatchingSet(calculatedMatches, expectedMatches);
@@ -141,7 +141,7 @@ public class MatchEngineTest {
 
         Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(tree1, tree2, 3, engine);
 
-        Set<Pair<String, String>> calculatedMatches = matching.stream().map(x -> Pair.of(x.first.getLabel().get(), x.second.getLabel().get())).collect(Collectors.toSet());
+        Set<Pair<String, String>> calculatedMatches = matching.stream().map(x -> Pair.of(x.first.getLabel(), x.second.getLabel())).collect(Collectors.toSet());
         Set<Pair<String, String>> expectedMatches = ImmutableSet.of(Pair.of("parent", "parent"),
                 Pair.of("child", "child"),Pair.of("child1", "child1"));
 
@@ -177,7 +177,7 @@ public class MatchEngineTest {
 
         Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(tree1, tree2, 2, engine);
 
-        Set<Pair<String, String>> calculatedMatches = matching.stream().map(x -> Pair.of(x.first.getLabel().get(), x.second.getLabel().get())).collect(Collectors.toSet());
+        Set<Pair<String, String>> calculatedMatches = matching.stream().map(x -> Pair.of(x.first.getLabel(), x.second.getLabel())).collect(Collectors.toSet());
         Set<Pair<String, String>> expectedMatches = ImmutableSet.of(Pair.of("parent", "parent"),
                 Pair.of("child", "child"));
 
