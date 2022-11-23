@@ -27,13 +27,13 @@ public class MoveOperationTest {
                 "<child3></child3>"+
                 "</parent>";
         TestTreeNode root1 = parseXmlTree(tree1);
-        EditOperation operation = Operations.move(root1.getChildren().get().get(0).getChildren().get().get(0),
-                root1.getChildren().get().get(1),
+        EditOperation operation = Operations.move(root1.getChildren().get(0).getChildren().get(0),
+                root1.getChildren().get(1),
                 1);
         operation.apply();
 
-        assertThat(root1.getChildren().get().get(0).getChildren().get().size(), Matchers.is(0));
-        assertThat(root1.getChildren().get().get(1).getChildren().get().size(), Matchers.is(2));
-        assertThat(root1.getChildren().get().get(1).getChildren().get().get(1).getLabel(), Matchers.is("child01"));
+        assertThat(root1.getChildren().get(0).getChildren().size(), Matchers.is(0));
+        assertThat(root1.getChildren().get(1).getChildren().size(), Matchers.is(2));
+        assertThat(root1.getChildren().get(1).getChildren().get(1).getLabel(), Matchers.is("child01"));
     }
 }

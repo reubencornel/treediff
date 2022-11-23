@@ -6,6 +6,7 @@ import org.freeshell.rfcornel.datastructure.Node;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -19,7 +20,7 @@ public class PostOrderTraversalIteratorTest {
     @Test
     public void testTraversalWithOneNode() {
         Node mockedNode = Mockito.mock(Node.class);
-        Mockito.when(mockedNode.getChildren()).thenReturn(Optional.empty());
+        Mockito.when(mockedNode.getChildren()).thenReturn(List.of());
         Mockito.when(mockedNode.getParent()).thenReturn(Optional.empty());
 
         PostOrderTraversalIterator iterator = new PostOrderTraversalIterator(mockedNode);
@@ -31,10 +32,10 @@ public class PostOrderTraversalIteratorTest {
     @Test
     public void testTraversalWithOneRootAndOneChild() {
         Node childNode = Mockito.mock(Node.class);
-        Mockito.when(childNode.getChildren()).thenReturn(Optional.empty());
+        Mockito.when(childNode.getChildren()).thenReturn(List.of());
 
         Node rootNode = Mockito.mock(Node.class);
-        Mockito.when(rootNode.getChildren()).thenReturn(Optional.of(ImmutableList.of(childNode)));
+        Mockito.when(rootNode.getChildren()).thenReturn(ImmutableList.of(childNode));
         Mockito.when(rootNode.getParent()).thenReturn(Optional.empty());
 
         Mockito.when(childNode.getParent()).thenReturn(Optional.of(rootNode));
@@ -54,13 +55,13 @@ public class PostOrderTraversalIteratorTest {
     @Test
     public void testTraversalWithOneRootAndTwoChildren() {
         Node childNode = Mockito.mock(Node.class);
-        Mockito.when(childNode.getChildren()).thenReturn(Optional.empty());
+        Mockito.when(childNode.getChildren()).thenReturn(List.of());
 
         Node childNode1 = Mockito.mock(Node.class);
-        Mockito.when(childNode.getChildren()).thenReturn(Optional.empty());
+        Mockito.when(childNode.getChildren()).thenReturn(List.of());
 
         Node rootNode = Mockito.mock(Node.class);
-        Mockito.when(rootNode.getChildren()).thenReturn(Optional.of(ImmutableList.of(childNode, childNode1)));
+        Mockito.when(rootNode.getChildren()).thenReturn(ImmutableList.of(childNode, childNode1));
         Mockito.when(rootNode.getParent()).thenReturn(Optional.empty());
 
         Mockito.when(childNode.getParent()).thenReturn(Optional.of(rootNode));
@@ -88,16 +89,16 @@ public class PostOrderTraversalIteratorTest {
         Node childNode = Mockito.mock(Node.class);
 
         Node childNode1 = Mockito.mock(Node.class);
-        Mockito.when(childNode.getChildren()).thenReturn(Optional.empty());
+        Mockito.when(childNode.getChildren()).thenReturn(List.of());
 
         Node childNode2 = Mockito.mock(Node.class);
         Mockito.when(childNode2.getParent()).thenReturn(Optional.of(childNode));
-        Mockito.when(childNode2.getChildren()).thenReturn(Optional.empty());
-        Mockito.when(childNode.getChildren()).thenReturn(Optional.of(ImmutableList.of(childNode2)));
+        Mockito.when(childNode2.getChildren()).thenReturn(List.of());
+        Mockito.when(childNode.getChildren()).thenReturn(ImmutableList.of(childNode2));
 
 
         Node rootNode = Mockito.mock(Node.class);
-        Mockito.when(rootNode.getChildren()).thenReturn(Optional.of(ImmutableList.of(childNode, childNode1)));
+        Mockito.when(rootNode.getChildren()).thenReturn(ImmutableList.of(childNode, childNode1));
         Mockito.when(rootNode.getParent()).thenReturn(Optional.empty());
 
         Mockito.when(childNode.getParent()).thenReturn(Optional.of(rootNode));

@@ -22,7 +22,7 @@ public class XmlParsingTest {
 
         assertThat(root, notNullValue());
         assertThat(root.getLabel(), is("test"));
-        assertThat(root.getChildren().isPresent(), is(false));
+        assertThat(!root.getChildren().isEmpty(), is(false));
     }
 
     @Test
@@ -34,8 +34,8 @@ public class XmlParsingTest {
         TestTreeNode root = TestingUtils.parseXmlTree(treeInput);
 
         assertThat(root, notNullValue());
-        assertThat(root.getChildren().isPresent(), is(true));
-        assertThat(root.getChildren().get().size(), is(2));
+        assertThat(!root.getChildren().isEmpty(), is(true));
+        assertThat(root.getChildren().size(), is(2));
     }
 
     @Test
@@ -47,9 +47,9 @@ public class XmlParsingTest {
         TestTreeNode root = TestingUtils.parseXmlTree(treeInput);
 
         assertThat(root, notNullValue());
-        assertThat(root.getChildren().isPresent(), is(true));
-        assertThat(root.getChildren().get().size(), is(2));
-        assertThat(root.getChildren().get().get(0).getValue().get().keySet().contains("name"), is(true));
+        assertThat(!root.getChildren().isEmpty(), is(true));
+        assertThat(root.getChildren().size(), is(2));
+        assertThat(root.getChildren().get(0).getValue().get().keySet().contains("name"), is(true));
     }
 
 }

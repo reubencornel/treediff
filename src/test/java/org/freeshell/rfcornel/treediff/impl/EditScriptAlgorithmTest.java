@@ -68,8 +68,8 @@ public class EditScriptAlgorithmTest {
         EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(matching, new SimpleLCSAlgorithm<>());
         List<EditOperation> editOperations = nodeEditScriptAlgorithm.calculateEditScript(root1, root2);
 
-        assertThat(root1.getChildren().isPresent(), is(true));
-        assertThat(root1.getChildren().get().size(), is(2));
+        assertThat(!root1.getChildren().isEmpty(), is(true));
+        assertThat(root1.getChildren().size(), is(2));
         assertThat(editOperations.size(), is(1));
         assertThat(matching.size() - oldMatchingSize, is(1));
         assertThat(matching.stream().map(x -> x.first.getLabel()
@@ -94,8 +94,8 @@ public class EditScriptAlgorithmTest {
 
         assertThat(editOperations.size(), is(1));
         assertThat(editOperations.get(0) instanceof UpdateValueOperation, is(true));
-        assertThat(root1.getChildren().get().get(0).getValue().isPresent(), is(true));
-        assertThat(root1.getChildren().get().get(0).getValue().get().get("name"), is("reuben"));
+        assertThat(root1.getChildren().get(0).getValue().isPresent(), is(true));
+        assertThat(root1.getChildren().get(0).getValue().get().get("name"), is("reuben"));
     }
 
     // In this case the parents of the matched node are not matched.
@@ -164,7 +164,7 @@ public class EditScriptAlgorithmTest {
 
         EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(new ArrayList<>(), null);
         nodeEditScriptAlgorithm.markAllChildrenOutOfOrder(root2);
-        boolean value = root2.getChildren().get().stream().map(x -> x.inOrder()).reduce(false, (x, y) -> x || y);
+        boolean value = root2.getChildren().stream().map(x -> x.inOrder()).reduce(false, (x, y) -> x || y);
         assertThat(value, is(false));
     }
 
@@ -196,7 +196,7 @@ public class EditScriptAlgorithmTest {
         Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 4, new FastMatch());
 
         // Create a fake match
-        Pair<TestTreeNode, TestTreeNode> fakeMatch = Pair.of((TestTreeNode)root1.getChildren().get().get(2), root3.getChildren().get().get(0));
+        Pair<TestTreeNode, TestTreeNode> fakeMatch = Pair.of(root1.getChildren().get(2), root3.getChildren().get(0));
         matching.add(fakeMatch);
 
         DummyLCSImpl<TestTreeNode> dummyLCS = new DummyLCSImpl<>();
@@ -266,11 +266,11 @@ public class EditScriptAlgorithmTest {
         EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(matching, new SimpleLCSAlgorithm<>());
         nodeEditScriptAlgorithm.alignChildren(root1, root2);
 
-        assertThat(root1.getChildren().get().get(0).inOrder(), is(true));
-        assertThat(root2.getChildren().get().get(0).inOrder(), is(true));
+        assertThat(root1.getChildren().get(0).inOrder(), is(true));
+        assertThat(root2.getChildren().get(0).inOrder(), is(true));
 
-        assertThat(root1.getChildren().get().get(1).inOrder(), is(true));
-        assertThat(root2.getChildren().get().get(2).inOrder(), is(true));
+        assertThat(root1.getChildren().get(1).inOrder(), is(true));
+        assertThat(root2.getChildren().get(2).inOrder(), is(true));
     }
 
 
@@ -297,9 +297,9 @@ public class EditScriptAlgorithmTest {
         EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(matching, new SimpleLCSAlgorithm<>());
         nodeEditScriptAlgorithm.alignChildren(root1, root2);
 
-        assertThat(root1.getChildren().get().get(0).getLabel(), is("child"));
-        assertThat(root1.getChildren().get().get(1).getLabel(), is("child1"));
-        assertThat(root1.getChildren().get().get(2).getLabel(), is("child3"));
+        assertThat(root1.getChildren().get(0).getLabel(), is("child"));
+        assertThat(root1.getChildren().get(1).getLabel(), is("child1"));
+        assertThat(root1.getChildren().get(2).getLabel(), is("child3"));
     }
 
     
@@ -320,7 +320,7 @@ public class EditScriptAlgorithmTest {
 
         Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 2, new FastMatch());
         EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(matching, null);
-        TestTreeNode node = root2.getChildren().get().get(0);
+        TestTreeNode node = root2.getChildren().get(0);
         node.setInOrder(true);
         assertThat(nodeEditScriptAlgorithm.findPosition(node), is(0));
     }
@@ -363,8 +363,8 @@ public class EditScriptAlgorithmTest {
 
         Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 1, new FastMatch());
         EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(matching, null);
-        root2.getChildren().get().get(1).setInOrder(true);
-        int nodePosition = nodeEditScriptAlgorithm.findRightMostSiblingOfNodeMarkedInOrder(root2.getChildren().get().get(3), root2.getChildren().get());
+        root2.getChildren().get(1).setInOrder(true);
+        int nodePosition = nodeEditScriptAlgorithm.findRightMostSiblingOfNodeMarkedInOrder(root2.getChildren().get(3), root2.getChildren());
         assertThat(nodePosition, is(1));
     }
 
@@ -387,8 +387,8 @@ public class EditScriptAlgorithmTest {
         TestTreeNode root2 = parseXmlTree(tree2);
         Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(root1, root2, 3, new FastMatch());
         EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(matching, null);
-        root2.getChildren().get().get(1).setInOrder(true);
-        int nodePosition = nodeEditScriptAlgorithm.findPosition(root2.getChildren().get().get(3), root2);
+        root2.getChildren().get(1).setInOrder(true);
+        int nodePosition = nodeEditScriptAlgorithm.findPosition(root2.getChildren().get(3), root2);
         assertThat(nodePosition, is(1));
     }
 

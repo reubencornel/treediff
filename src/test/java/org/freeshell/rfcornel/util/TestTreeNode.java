@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  */
 public class TestTreeNode implements Node<TestTreeNode> {
     private String _label;
-    private List<TestTreeNode> _children;
+    private List<TestTreeNode> _children = new ArrayList<>();
     private TestTreeNode _parent;
     private boolean _matched = false;
     private boolean _inOrder;
@@ -52,8 +52,8 @@ public class TestTreeNode implements Node<TestTreeNode> {
     }
 
     @Override
-    public Optional<List<TestTreeNode>> getChildren() {
-        return Optional.ofNullable(_children);
+    public List<TestTreeNode> getChildren() {
+        return _children;
     }
 
     @Override
@@ -62,6 +62,7 @@ public class TestTreeNode implements Node<TestTreeNode> {
             return ;
         }
         this._children = children.stream().collect(Collectors.toList());
+        _children.stream().forEach(child -> child.setParent(this));
     }
 
     public void addChild(TestTreeNode child) {

@@ -1,12 +1,10 @@
 package org.freeshell.rfcornel.datastructure.impl;
 
-import com.google.common.collect.ImmutableList;
 import org.freeshell.rfcornel.datastructure.Node;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by rcornel on 6/16/17.
@@ -81,7 +79,7 @@ public class PostOrderTraversalIterator<E extends Node> implements Iterator{
     }
 
     private static <E extends Node> List<E> getChildren(E currentNode) {
-        return ((Optional<List<E>>)currentNode.getChildren()).orElse(ImmutableList.of());
+        return currentNode.getChildren();
     }
 
     static class PostTraversalNodeInfo {

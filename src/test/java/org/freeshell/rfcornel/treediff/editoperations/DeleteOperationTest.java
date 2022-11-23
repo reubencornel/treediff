@@ -28,9 +28,9 @@ public class DeleteOperationTest {
                 "<child3></child3>"+
                 "</parent>";
         TestTreeNode root1 = parseXmlTree(tree1);
-        EditOperation operation = Operations.delete(root1.getChildren().get().get(0));
+        EditOperation operation = Operations.delete(root1.getChildren().get(0));
 
         operation.apply();
-        assertThat(root1.getChildren().get().get(0).getLabel(), Matchers.is("child1"));
+        assertThat(root1.getChildren().get(0).getLabel(), Matchers.is("child1"));
     }
 }

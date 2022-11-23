@@ -34,7 +34,7 @@ public interface Node<E extends Node<E>> {
      *
      * @return returns empty if the node has no children.
      */
-    Optional<List<E>> getChildren();
+    List<E> getChildren();
 
     /**
      * This method lets you set the children for a node.

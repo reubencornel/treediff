@@ -107,15 +107,9 @@ public class EditScriptAlgorithm<E extends Node<E>> implements TreeDiffAlgorithm
         markAllChildrenOutOfOrder(w);
         markAllChildrenOutOfOrder(x);
 
-        List<E> s1 = (List<E>) w.getChildren()
-                .flatMap(value -> Optional.of(value.stream().filter(y -> _T1ToT2.containsKey(y) && (_T1ToT2.get(y).getParent().get() == x))
-                    .collect(Collectors.toList())))
-                .orElse(new ArrayList());
+        List<E> s1 = w.getChildren().stream().filter(y -> _T1ToT2.containsKey(y) && (_T1ToT2.get(y).getParent().get() == x)).collect(Collectors.toList());
 
-        List<E> s2 = (List<E>) x.getChildren()
-                .flatMap(value -> Optional.of(value.stream().filter(y -> _T2ToT1.containsKey(y) && (_T2ToT1.get(y).getParent().get() == w))
-                        .collect(Collectors.toList())))
-                .orElse(new ArrayList());
+        List<E> s2 = x.getChildren().stream().filter(y -> _T2ToT1.containsKey(y) && (_T2ToT1.get(y).getParent().get() == w)).collect(Collectors.toList());
 
         BiPredicate<E, E> lcsPredicate = (node, node2) -> _T1ToT2.containsKey(node) && _T1ToT2.get(node) == node2;
         List<Pair<E, E>> s = this._lcsAlgorithm.getLCS(s1, s2, lcsPredicate);
@@ -149,10 +143,8 @@ public class EditScriptAlgorithm<E extends Node<E>> implements TreeDiffAlgorithm
     }
 
     void markAllChildrenOutOfOrder(E x) {
-        x.getChildren()
-                .ifPresent(children -> children
-                                    .stream()
-                                    .forEach(child -> child.setInOrder(false)));
+        x.getChildren().stream()
+                .forEach(child -> child.setInOrder(false));
     }
 
     int findPosition(E nodeInTree2) {
@@ -167,7 +159,7 @@ public class EditScriptAlgorithm<E extends Node<E>> implements TreeDiffAlgorithm
     int findPosition(E nodeInTree2, E parent) {
         // if x is the left most child of its parent that is marked
         // "in order" return 1 (0, off by one)
-        List<E> children = (List<E>) parent.getChildren().get();
+        List<E> children = (List<E>) parent.getChildren();
         int rightMostSiblingOfNodeMarkedInOrder = findRightMostSiblingOfNodeMarkedInOrder(nodeInTree2, children);
 
         if (rightMostSiblingOfNodeMarkedInOrder == -1) {
@@ -183,7 +175,7 @@ public class EditScriptAlgorithm<E extends Node<E>> implements TreeDiffAlgorithm
     private int findIndexOf(E u) {
         assert(u.getParent().isPresent());
 
-        List<E> siblings = u.getParent().get().getChildren().get();
+        List<E> siblings = u.getParent().get().getChildren();
         int i = 0;
         while (siblings.get(i)  != u) {
             i++;

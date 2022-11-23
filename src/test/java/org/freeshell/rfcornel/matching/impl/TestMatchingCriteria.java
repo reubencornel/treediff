@@ -17,7 +17,7 @@ public class TestMatchingCriteria implements MatchingCriteria<TestTreeNode> {
     @Override
     public boolean matches(TestTreeNode node1, TestTreeNode node2, List<Pair<TestTreeNode, TestTreeNode>> matching) {
         // Leaf Node so just match labels
-        if (!node1.getChildren().isPresent() && !node2.getChildren().isPresent()) {
+        if (node1.getChildren().isEmpty() && node2.getChildren().isEmpty()) {
             String node1Label = node1.getLabel();
             String node2Label = node2.getLabel();
             return (node1Label != null && node1Label != null && node1Label.equals(node2Label));
@@ -45,11 +45,11 @@ public class TestMatchingCriteria implements MatchingCriteria<TestTreeNode> {
     }
 
     private int numberOfLeaves(TestTreeNode root) {
-        Optional<List<TestTreeNode>> children = root.getChildren();
+        List<TestTreeNode> children = root.getChildren();
 
-        if (root.getChildren().isPresent()) {
+        if (!root.getChildren().isEmpty()) {
             int numberOfChildren = 0;
-            for (Node child : children.get()) {
+            for (Node child : children) {
                 numberOfChildren += numberOfLeaves((TestTreeNode)child);
             }
             return numberOfChildren;

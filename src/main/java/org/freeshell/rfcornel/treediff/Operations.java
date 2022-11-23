@@ -32,7 +32,7 @@ public class Operations{
 
      public static  <E extends Node> int childPosition(Node parent, Node childToFind) {
         int position = 0;
-        for (E child : ((Optional<List<E>>) parent.getChildren()).get()) {
+        for (E child : (List<E>) parent.getChildren()) {
             if(child == childToFind) {
                 return position;
             }

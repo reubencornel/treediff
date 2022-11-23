@@ -34,7 +34,7 @@ public class InsertOperationTest {
         operation.apply();
 
         assertThat(newNode.getParent().get(), Matchers.is(root1));
-        assertThat(root1.getChildren().get().get(2), Matchers.is(newNode));
+        assertThat(root1.getChildren().get(2), Matchers.is(newNode));
     }
 
 
@@ -47,6 +47,6 @@ public class InsertOperationTest {
         EditOperation operation = Operations.insert(newNode, root1, 2);
         operation.apply();
         assertThat(newNode.getParent().get(), Matchers.is(root1));
-        assertThat(root1.getChildren().get().get(0), Matchers.is(newNode));
+        assertThat(root1.getChildren().get(0), Matchers.is(newNode));
     }
 }

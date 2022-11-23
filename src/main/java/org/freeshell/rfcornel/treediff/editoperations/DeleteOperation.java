@@ -34,7 +34,7 @@ public class DeleteOperation<E extends Node<E>> implements EditOperation {
         parentLabel = parent.getLabel();
         parentIdentityHash = System.identityHashCode(parent);
         int position = Operations.childPosition(parent, _nodeToBeDeleted);
-        parent.getChildren().get().remove(position);
+        parent.getChildren().remove(position);
         // Remove the child from under the parent, but keep a reference to the parent in case we need to use it further.
 //        _nodeToBeDeleted.setParent(null);
     }

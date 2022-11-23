@@ -28,7 +28,7 @@ public class BreadthFirstTraversalIterator<E extends Node> implements Iterator {
     @Override
     public E next() {
         E currentElement = _queue.poll();
-        currentElement.getChildren().ifPresent(x -> _queue.addAll((Collection<? extends E>) x));
+        _queue.addAll(currentElement.getChildren());
         return currentElement;
     }
 }

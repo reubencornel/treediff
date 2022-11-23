@@ -39,11 +39,11 @@ public class MoveOperation<E extends Node<E>> implements EditOperation {
 
         _oldParent = oldParent;
         _oldPosition = oldPosition;
-        oldParent.getChildren().get().remove(oldPosition);
+        oldParent.getChildren().remove(oldPosition);
         _nodeToBeMoved.setParent(_parent);
 
-        if (_parent.getChildren().isPresent()) {
-            List<E> children = _parent.getChildren().get();
+        if (_parent.getChildren() != null) {
+            List<E> children = _parent.getChildren();
             children.add(_position, _nodeToBeMoved);
         } else {
             List<E> children = new ArrayList<>();

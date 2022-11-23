@@ -28,11 +28,11 @@ public class InsertOperation<E extends Node<E>> implements EditOperation {
 
     @Override
     public void apply() {
-        if (_parent.getChildren().isPresent()) {
-            List<Node> nodes = (List<Node>) _parent.getChildren().get();
+        if (!_parent.getChildren().isEmpty()) {
+            List<Node> nodes = (List<Node>) _parent.getChildren();
             nodes.add(position, _newNode);
         } else {
-            List<Node>  nodes = new ArrayList<>();
+            List<Node> nodes = new ArrayList<>();
             nodes.add(_newNode);
             _parent.setChildren(nodes);
         }
