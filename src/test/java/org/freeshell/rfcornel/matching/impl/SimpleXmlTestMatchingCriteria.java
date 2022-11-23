@@ -1,6 +1,5 @@
 package org.freeshell.rfcornel.matching.impl;
 
-import org.freeshell.rfcornel.datastructure.Node;
 import org.freeshell.rfcornel.matching.MatchingCriteria;
 import org.freeshell.rfcornel.util.Pair;
 import org.freeshell.rfcornel.util.TestTreeNode;

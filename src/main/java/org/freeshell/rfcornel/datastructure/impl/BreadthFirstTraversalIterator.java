@@ -2,7 +2,6 @@ package org.freeshell.rfcornel.datastructure.impl;
 
 import org.freeshell.rfcornel.datastructure.Node;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -13,7 +12,7 @@ import java.util.Queue;
  * @author reuben
  */
 public class BreadthFirstTraversalIterator<E extends Node> implements Iterator {
-    private Queue<E> _queue;
+    private final Queue<E> _queue;
 
     public BreadthFirstTraversalIterator(E root) {
         _queue = new LinkedList<>();

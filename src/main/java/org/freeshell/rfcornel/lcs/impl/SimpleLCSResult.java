@@ -8,7 +8,7 @@ import org.freeshell.rfcornel.util.Pair;
 import java.util.Optional;
 
 public class SimpleLCSResult implements LCSResult {
-	private LCSCellResult[][] results;
+	private final LCSCellResult[][] results;
 
 	public SimpleLCSResult(int x, int y) {
 		// We always add +1 because when we execute LCS, the zeroth row and column are always empty

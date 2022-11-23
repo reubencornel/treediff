@@ -49,7 +49,7 @@ public class XmlParsingTest {
         assertThat(root, notNullValue());
         assertThat(!root.getChildren().isEmpty(), is(true));
         assertThat(root.getChildren().size(), is(2));
-        assertThat(root.getChildren().get(0).getValue().get().keySet().contains("name"), is(true));
+        assertThat(root.getChildren().get(0).getValue().get().containsKey("name"), is(true));
     }
 
 }

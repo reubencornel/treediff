@@ -7,7 +7,6 @@ import org.freeshell.rfcornel.treediff.editoperations.MoveOperation;
 import org.freeshell.rfcornel.treediff.editoperations.UpdateValueOperation;
 
 import java.util.List;
-import java.util.Optional;
 
 
 /**

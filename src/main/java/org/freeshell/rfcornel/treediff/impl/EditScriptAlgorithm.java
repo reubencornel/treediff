@@ -23,7 +23,7 @@ public class EditScriptAlgorithm<E extends Node<E>> implements TreeDiffAlgorithm
     private final Map<E, E> _T2ToT1;
     private final Map<E, E> _T1ToT2;
     private final LCSAlgorithm<E> _lcsAlgorithm;
-    private List<EditOperation> _operations;
+    private final List<EditOperation> _operations;
 
     public EditScriptAlgorithm(Collection<Pair<E, E>> matching, LCSAlgorithm<E> algorithm) {
         this._matching = matching;
@@ -54,7 +54,7 @@ public class EditScriptAlgorithm<E extends Node<E>> implements TreeDiffAlgorithm
                 EditOperation insertOp = Operations.insert(copiedNode, z.get(), k);
                 _operations.add(insertOp);
                 insertOp.apply();
-                addToMatching((E) x, (E) copiedNode);
+                addToMatching(x, (E) copiedNode);
             } else if (y.isPresent()) { // x is not a root
                 //if v(w) != v(x)
                 if (!x.valuesEqual(w.get().getValue().get())) {
@@ -63,7 +63,7 @@ public class EditScriptAlgorithm<E extends Node<E>> implements TreeDiffAlgorithm
                     operation.apply();
                 }
 
-                E v = (E) w.get().getParent().get();
+                E v = w.get().getParent().get();
                 // if the parent of node x in t2 is not the the parent of w
                 if (_T2ToT1.get(y.get()) != v) {
                     int k = findPosition(x);
@@ -75,9 +75,7 @@ public class EditScriptAlgorithm<E extends Node<E>> implements TreeDiffAlgorithm
                     w.get().setInOrder(true);
                 }
             }
-            if(w.isPresent()) {
-                alignChildren((E)w.get(), (E)x);
-            }
+            w.ifPresent(e -> alignChildren(e, x));
         }
 
         PostOrderTraversalIterator<Node> postOrderTraversalIterator = new PostOrderTraversalIterator<>(root1);
@@ -159,7 +157,7 @@ public class EditScriptAlgorithm<E extends Node<E>> implements TreeDiffAlgorithm
     int findPosition(E nodeInTree2, E parent) {
         // if x is the left most child of its parent that is marked
         // "in order" return 1 (0, off by one)
-        List<E> children = (List<E>) parent.getChildren();
+        List<E> children = parent.getChildren();
         int rightMostSiblingOfNodeMarkedInOrder = findRightMostSiblingOfNodeMarkedInOrder(nodeInTree2, children);
 
         if (rightMostSiblingOfNodeMarkedInOrder == -1) {

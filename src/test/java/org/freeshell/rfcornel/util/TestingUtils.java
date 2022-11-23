@@ -2,7 +2,6 @@ package org.freeshell.rfcornel.util;
 
 import org.freeshell.rfcornel.matching.MatchingCriteria;
 import org.freeshell.rfcornel.matching.MatchingEngine;
-import org.freeshell.rfcornel.matching.impl.DefaultMatch;
 import org.freeshell.rfcornel.matching.impl.TestMatchingCriteria;
 import org.xml.sax.SAXException;
 

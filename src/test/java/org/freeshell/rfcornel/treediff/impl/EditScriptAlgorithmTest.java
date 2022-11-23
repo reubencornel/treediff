@@ -2,13 +2,11 @@ package org.freeshell.rfcornel.treediff.impl;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import org.freeshell.rfcornel.datastructure.Node;
 import org.freeshell.rfcornel.lcs.LCSAlgorithm;
 import org.freeshell.rfcornel.lcs.LCSResult;
 import org.freeshell.rfcornel.lcs.impl.SimpleLCSAlgorithm;
 import org.freeshell.rfcornel.lcs.impl.SimpleLCSResult;
 import org.freeshell.rfcornel.matching.MatchingEngine;
-import org.freeshell.rfcornel.matching.impl.DefaultMatch;
 import org.freeshell.rfcornel.matching.impl.FastMatch;
 import org.freeshell.rfcornel.matching.impl.SimpleXmlTestMatchingCriteria;
 import org.freeshell.rfcornel.matching.impl.TestMatchingCriteria;
@@ -17,7 +15,6 @@ import org.freeshell.rfcornel.treediff.editoperations.UpdateValueOperation;
 import org.freeshell.rfcornel.util.Pair;
 import org.freeshell.rfcornel.util.TestTreeNode;
 import org.freeshell.rfcornel.util.TestingUtils;
-import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
@@ -33,7 +30,6 @@ import java.util.stream.Collectors;
 import static org.freeshell.rfcornel.util.TestingUtils.parseXmlTree;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertTrue;
 
@@ -400,7 +396,7 @@ public class EditScriptAlgorithmTest {
 //        TestTreeNode testTreeNode1 = parseXmlTree(file1);
 //        TestTreeNode testTreeNode2 = parseXmlTree(file2);
 //
-//        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(testTreeNode1, testTreeNode2, -1);
+//        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(testTreeNode1, testTreeNode2, -1, new FastMatch());
 //        System.out.println(matching);
 //        EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(matching, new SimpleLCSAlgorithm<>());
 //        List<EditOperation> editOperations = nodeEditScriptAlgorithm.calculateEditScript(testTreeNode1, testTreeNode2);

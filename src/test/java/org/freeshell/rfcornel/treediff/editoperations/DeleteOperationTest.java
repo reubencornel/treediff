@@ -9,7 +9,6 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.util.Optional;
 
 import static org.freeshell.rfcornel.util.TestingUtils.parseXmlTree;
 import static org.hamcrest.MatcherAssert.assertThat;

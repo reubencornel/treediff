@@ -9,8 +9,8 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public class ShortBasedLCSResult implements LCSResult {
-    private byte[][] results;
-    private int[][] costs;
+    private final byte[][] results;
+    private final int[][] costs;
 
     public ShortBasedLCSResult(int x, int y){
         this.results = new byte[x+2][y+2];

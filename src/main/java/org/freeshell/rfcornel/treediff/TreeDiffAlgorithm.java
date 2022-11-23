@@ -1,7 +1,6 @@
 package org.freeshell.rfcornel.treediff;
 
 import org.freeshell.rfcornel.datastructure.Node;
-import org.freeshell.rfcornel.util.Pair;
 
 import java.util.List;
 

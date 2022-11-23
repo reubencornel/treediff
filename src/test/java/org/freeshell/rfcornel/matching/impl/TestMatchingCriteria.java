@@ -6,7 +6,6 @@ import org.freeshell.rfcornel.util.Pair;
 import org.freeshell.rfcornel.util.TestTreeNode;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by reuben on 8/5/17.
@@ -20,7 +19,7 @@ public class TestMatchingCriteria implements MatchingCriteria<TestTreeNode> {
         if (node1.getChildren().isEmpty() && node2.getChildren().isEmpty()) {
             String node1Label = node1.getLabel();
             String node2Label = node2.getLabel();
-            return (node1Label != null && node1Label != null && node1Label.equals(node2Label));
+            return (node1Label != null && node2Label != null && node1Label.equals(node2Label));
         } else {
             // We need to find the set of children in the matching such that if (w,z) are a tuple in the matching
             // w is a child of x and z is a child of y
@@ -65,7 +64,7 @@ public class TestMatchingCriteria implements MatchingCriteria<TestTreeNode> {
         }
 
         do {
-            node = (TestTreeNode)node.getParent().get();
+            node = node.getParent().get();
             if (node == parent) {
                 return true;
             }

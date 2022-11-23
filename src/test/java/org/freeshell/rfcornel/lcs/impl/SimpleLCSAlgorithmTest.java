@@ -18,7 +18,6 @@ import java.util.Optional;
 import java.util.function.BiPredicate;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 
@@ -78,7 +77,7 @@ public class SimpleLCSAlgorithmTest {
     @Parameterized.Parameter(4)
     public List<Pair<Character, Character>> expectedSeqElements;
 
-    public static BiPredicate<Character, Character> equalityPredicate = (character, character2) -> character.equals(character2);
+    public static final BiPredicate<Character, Character> equalityPredicate = (character, character2) -> character.equals(character2);
 
     @Test
 	public void testSimpleLCSResult() {

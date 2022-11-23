@@ -14,7 +14,7 @@ public class PostOrderTraversalIterator<E extends Node> implements Iterator{
     private final E _root;
     private boolean _justInitialized;
     private E _currentNode;
-    private List<PostTraversalNodeInfo> _postTraversalStack;
+    private final List<PostTraversalNodeInfo> _postTraversalStack;
     private PostTraversalNodeInfo _currentNodeInfo;
 
     public PostOrderTraversalIterator(E root) {
@@ -66,7 +66,7 @@ public class PostOrderTraversalIterator<E extends Node> implements Iterator{
 
     private void visitUnvisitedChildren() {
         while (hasChildren(_currentNode) && hasUnvisitedChildren()) {
-            E nextNode =(E) getChildren(_currentNode).get(_currentNodeInfo.lastVisitedChild);
+            E nextNode = getChildren(_currentNode).get(_currentNodeInfo.lastVisitedChild);
             _currentNodeInfo.lastVisitedChild++;
             _currentNodeInfo = PostTraversalNodeInfo.newPointer(nextNode);
             _postTraversalStack.add(_currentNodeInfo);
