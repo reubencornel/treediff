@@ -90,8 +90,8 @@ public class EditScriptAlgorithmTest {
 
         assertThat(editOperations.size(), is(1));
         assertThat(editOperations.get(0) instanceof UpdateValueOperation, is(true));
-        assertThat(root1.getChildren().get(0).getValue().isPresent(), is(true));
-        assertThat(root1.getChildren().get(0).getValue().get().get("name"), is("reuben"));
+        assertThat(root1.getChildren().get(0).getValue().size() > 0, is(true));
+        assertThat(root1.getChildren().get(0).getValue().get("name"), is("reuben"));
     }
 
     // In this case the parents of the matched node are not matched.
@@ -388,18 +388,20 @@ public class EditScriptAlgorithmTest {
         assertThat(nodePosition, is(1));
     }
 
-//    @Test
-//    public void workTest() throws IOException, SAXException, ParserConfigurationException {
-//        InputStream file1 = new BufferedInputStream(new FileInputStream("/home/reuben/Dropbox/CampaignInsights.xml"));
-//        InputStream file2 = new BufferedInputStream(new FileInputStream("/home/reuben/Dropbox/CampaignInsights1.xml"));
-//
-//        TestTreeNode testTreeNode1 = parseXmlTree(file1);
-//        TestTreeNode testTreeNode2 = parseXmlTree(file2);
-//
-//        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(testTreeNode1, testTreeNode2, -1, new FastMatch());
-//        System.out.println(matching);
-//        EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(matching, new SimpleLCSAlgorithm<>());
-//        List<EditOperation> editOperations = nodeEditScriptAlgorithm.calculateEditScript(testTreeNode1, testTreeNode2);
-//        System.out.println(editOperations);
-//    }
+    @Test
+    public void workTest() throws IOException, SAXException, ParserConfigurationException {
+        InputStream file1 = new BufferedInputStream(new FileInputStream("/home/reuben/Dropbox/CampaignInsights.xml"));
+        InputStream file2 = new BufferedInputStream(new FileInputStream("/home/reuben/Dropbox/CampaignInsights1.xml"));
+
+        TestTreeNode testTreeNode1 = parseXmlTree(file1);
+        TestTreeNode testTreeNode2 = parseXmlTree(file2);
+
+        long start = System.currentTimeMillis();
+        Collection<Pair<TestTreeNode, TestTreeNode>> matching = TestingUtils.runMatchingTest(testTreeNode1, testTreeNode2, -1, new FastMatch());
+        System.out.println(matching);
+        EditScriptAlgorithm<TestTreeNode> nodeEditScriptAlgorithm = new EditScriptAlgorithm<>(matching, new SimpleLCSAlgorithm<>());
+        List<EditOperation> editOperations = nodeEditScriptAlgorithm.calculateEditScript(testTreeNode1, testTreeNode2);
+        System.out.println(editOperations);
+        System.out.println(System.currentTimeMillis() - start);
+    }
 }

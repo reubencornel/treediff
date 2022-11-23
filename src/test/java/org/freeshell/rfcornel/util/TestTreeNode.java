@@ -97,12 +97,14 @@ public class TestTreeNode implements Node<TestTreeNode> {
     public void updateValue(TestTreeNode newNode) {
         // For now this is a test Node.
         // ideally we should do a deep copy. But this is test code
-      newNode.getValue().ifPresent(x -> this._value = x);
+        if (newNode.getValue().size() > 0){
+            _value = newNode.getValue();
+        }
     }
 
     @Override
-    public Optional<Map<String, Object>> getValue() {
-        return Optional.of(_value);
+    public Map<String, Object> getValue() {
+        return _value;
     }
 
     @Override

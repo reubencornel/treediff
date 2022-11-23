@@ -53,7 +53,7 @@ public class SAXHandler extends DefaultHandler {
         }
 
         if (buffer.length() > 0) {
-            lastNodePopped.getValue().get().put("text", buffer.toString());
+            lastNodePopped.getValue().put("text", buffer.toString());
             buffer = new StringBuffer();
         }
     }

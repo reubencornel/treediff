@@ -57,7 +57,7 @@ public class EditScriptAlgorithm<E extends Node<E>> implements TreeDiffAlgorithm
                 addToMatching(x, (E) copiedNode);
             } else if (y.isPresent()) { // x is not a root
                 //if v(w) != v(x)
-                if (!x.valuesEqual(w.get().getValue().get())) {
+                if (!x.valuesEqual(w.get().getValue())) {
                     EditOperation operation = Operations.updateValueOperation(w.get(), x);
                     _operations.add(operation);
                     operation.apply();

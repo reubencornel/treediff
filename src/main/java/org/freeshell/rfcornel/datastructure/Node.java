@@ -76,7 +76,7 @@ public interface Node<E extends Node<E>> {
      * be the attributes of the node
      * @return
      */
-    Optional<Map<String, Object>> getValue();
+    Map<String, Object> getValue();
 
     /**
      * This requires nodes to implement a method that helps create a new node with the same contents.
